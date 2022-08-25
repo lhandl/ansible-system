@@ -3,6 +3,7 @@
   vars:
     system_owner: Testcompany
     application: testapp
+    application_role: testapp_role
   tasks:
   - ansible.builtin.template:
       src: templates/motd.j2
