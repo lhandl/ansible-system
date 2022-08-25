@@ -5,6 +5,7 @@
     application_role: testapp_role
     system_owner: Testcompany
     system_description: Testserver
+    system_environment: test
   tasks:
   - ansible.builtin.template:
       src: templates/motd.j2
