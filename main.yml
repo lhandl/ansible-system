@@ -13,6 +13,9 @@
     
   - ansible.builtin.set_fact:
       locals: {{ raw_locals | from_json }}
+      
+  - debug:
+      var: locals
 
   - ansible.builtin.template:
       src: templates/motd.j2
