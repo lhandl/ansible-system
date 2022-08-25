@@ -1,5 +1,7 @@
 - hosts: localhost
   gather_facts: yes
+  vars:
+    system_owner: Testcompany
   tasks:
   - ansible.builtin.template:
       src: templates/motd.j2
