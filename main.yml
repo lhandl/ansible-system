@@ -2,6 +2,7 @@
   gather_facts: yes
   vars:
     system_owner: Testcompany
+    application: testapp
   tasks:
   - ansible.builtin.template:
       src: templates/motd.j2
