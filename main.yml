@@ -7,6 +7,13 @@
     system_description: Testserver
     system_environment: production
   tasks:
+  - ansible.builtin.slurp:
+      src: /etc/system.json
+    register: raw_locals
+    
+  - ansible.builtin.set_fact:
+      locals: {{ raw_locals | from_json }}
+
   - ansible.builtin.template:
       src: templates/motd.j2
       dest: /etc/motd
