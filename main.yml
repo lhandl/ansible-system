@@ -9,4 +9,4 @@
   tasks:
   - ansible.builtin.template:
       src: templates/motd.j2
-      dest: /tmp/motd
+      dest: /etc/motd
