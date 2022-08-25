@@ -8,3 +8,8 @@
  description:  {{ system_description }}
  environment:  {{ system_environment }}
 
+===============================================================================
+{% if system_environment == "production" %}
+  WARNING               This is a production system!              WARNING
+===============================================================================
+{% endif %}
