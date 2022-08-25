@@ -1,22 +1,31 @@
 - hosts: localhost
   gather_facts: yes
   vars:
-    application: testapp
-    application_role: testapp_role
-    system_owner: Testcompany
-    system_description: Testserver
-    system_environment: production
+    default_application: "(no application set)"
+    default_application_role: "(no application role set)"
+    default_system_owner: "(no system owner set)"
+    default_system_description: "(no system description set)"
+    default_system_environment: "development"
+
   tasks:
-  - ansible.builtin.slurp:
+  - name: slurp local system variable
+    ansible.builtin.slurp:
       src: /etc/system.json
     register: raw_locals
     
-#  - ansible.builtin.set_fact:
-#      locals: "{{ raw_locals | from_json }}"
+  - name: parse system variable file
+    ansible.builtin.set_fact:
+      locals: "{{ raw_locals['content'] | b64decode | from_json }}"
       
-  - debug:
-      msg:  "{{ raw_locals['content'] | b64decode | from_json }}"
+  - name: set default variables if not set on system
+    ansible.builtin.set_fact:
+      application: "{{ locals.application | default(default_application) }}"
+      application_role: "{{ locals.application_role | default(default_application_role) }}"
+      system_owner: "{{ locals.system_owner | default(default_system_owner) }}"
+      system_description: "{{ locals.system_description | default(default_system_description) }}"      
+      system_environment: "{{ locals.system_environment | default(default_system_environment) }}"      
 
-  - ansible.builtin.template:
+  - name: write message of the day (MOTD)
+    ansible.builtin.template:
       src: templates/motd.j2
       dest: /etc/motd
