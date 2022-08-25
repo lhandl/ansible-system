@@ -1,5 +1,6 @@
 - hosts: localhost
-  gather_facts: no
+  gather_facts: yes
   tasks:
-  - debug:
-      msg: hello from ansible
+  - ansible.builtin.template:
+      src: templates/motd.j2
+      dest: /tmp/motd
