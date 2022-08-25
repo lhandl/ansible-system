@@ -11,11 +11,11 @@
       src: /etc/system.json
     register: raw_locals
     
-  - ansible.builtin.set_fact:
-      locals: "{{ raw_locals | from_json }}"
+#  - ansible.builtin.set_fact:
+#      locals: "{{ raw_locals | from_json }}"
       
   - debug:
-      var: locals
+      var: raw_locals
 
   - ansible.builtin.template:
       src: templates/motd.j2
