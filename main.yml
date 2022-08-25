@@ -15,7 +15,7 @@
 #      locals: "{{ raw_locals | from_json }}"
       
   - debug:
-      var: raw_locals
+      msg:  "{{ raw_locals['content'] | b64decode | from_json }}"
 
   - ansible.builtin.template:
       src: templates/motd.j2
